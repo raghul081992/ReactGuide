@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Styled from 'styled-components';
-import './App.css';
-import Person from './Person/Person';
+import Classes from '../Container/App.module.css';
+import Persons from '../Components/Persons/Persons';
+import Cockpit from '../Cockpit/Cockpit'
 
 class App extends Component {
 
@@ -57,52 +57,33 @@ class App extends Component {
 
 
     if (this.state.ShowPersons) {
-      persons = (<div>
-        {
-          this.state.persons.map((person, index) => {
-            return <Person name={person.name}
-              age={person.age}
-              click={() => this.deletePersonHandler(index)}
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
-          })
-        }
-      </div>)
+      persons = <Persons 
+            Persons = {this.state.persons}
+            click={this.deletePersonHandler}
+            changed={this.nameChangedHandler} />                  
+    }
+
+//     const StyledButton = Styled.button`
+//       background-color: ${props => props.alt ? 'red' : 'green'};
+//       color: white;
+//       font: inherit;
+//       border: 1px solid;
+//       padding: 8 px;
+//       cursor: pointer;
       
-    }
-
-    const StyledButton = Styled.button`
-      background-color: ${props => props.alt ? 'red' : 'green'};
-      color: white;
-      font: inherit;
-      border: 1px solid;
-      padding: 8 px;
-      cursor: pointer;
-      
-      &:hover {
-        background-color:${props => props.alt ? 'salmon' : 'lightgreen'};
-        color:black
-      }
-`
-
-    const classes = [];
-    if (this.state.persons.length <= 2) {
-      classes.push('red');
-    }
-
-    if (this.state.persons.length <= 1) {
-      classes.push('bold');
-    }
+//       &:hover {
+//         background-color:${props => props.alt ? 'salmon' : 'lightgreen'};
+//         color:black
+//       }
+// `
 
     return (
     
-<div className="App">
+<div className= {Classes.App}>
           
-            <p>Muthu Karrupana swami</p>
-            <p className={classes.join(' ')}>Satus</p>
-            <StyledButton alt = {this.state.ShowPersons} onClick={this.togglePersonHandler}>
-              Toggle Person
-        </StyledButton>
+            <Cockpit persons = {this.state.persons}
+            ShowPersons = {this.state.ShowPersons}
+            clicked = {this.togglePersonHandler}/>
             {persons}
           
         </div>  
